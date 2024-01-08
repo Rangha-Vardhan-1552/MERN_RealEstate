@@ -4,7 +4,8 @@ import { useEffect, useRef, useState} from 'react';
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
 import { app } from '../firebase';
 import { updateUserStart,updateUserSuccess,updateFailure,
-          deleteUserStart,deleteUserSuccess,deleteUserFailure
+          deleteUserStart,deleteUserSuccess,deleteUserFailure,
+          signOuteUserStart,signOuteUserSuccess,signOuteUserFailure
  } from '../redux/user/userSlice.js';
 import { useNavigate } from 'react-router-dom';
 
@@ -118,6 +119,23 @@ const deleteHandler= async()=>{
   }
 }
 
+const signOutHandler=async()=>{
+  try {
+    dispatch(signOuteUserStart())
+    const response= await fetch(`api/auth/signout`,{
+      method:'GET'
+    });
+    const result= await response.json()
+    if (result.success=== false){
+      dispatch(signOuteUserFailure(result.message))
+      return ;
+    }
+    dispatch(signOuteUserSuccess(result))
+    
+  } catch (error) {
+    dispatch(signOuteUserFailure(error.message))
+  }
+}
 
 
   return (
@@ -145,7 +163,7 @@ const deleteHandler= async()=>{
       </form>
       <div className='flex justify-between mt-5'>
         <span  onClick={deleteHandler} className='text-red-700 cursor-pointer'>Delete account</span>
-        <span className='text-red-700 cursor-pointer'>Sign out</span>
+        <span  onClick={signOutHandler} className='text-red-700 cursor-pointer'>Sign out</span>
       </div>
       <p className='text-red-700 mt-5'>{error?error:''}</p>
       <p className='text-green-700 mt-5'>{updateSuccess?'User update successfully...!':''}</p>

@@ -1,9 +1,12 @@
 
 import { useSelector ,useDispatch} from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState} from 'react';
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
 import { app } from '../firebase';
-import { updateUserStart,updateUserSuccess,updateFailure } from '../redux/user/userSlice.js';
+import { updateUserStart,updateUserSuccess,updateFailure,
+          deleteUserStart,deleteUserSuccess,deleteUserFailure
+ } from '../redux/user/userSlice.js';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -24,6 +27,7 @@ export default function Profile() {
 
   const [formData , setFormData] = useState({})
   const fileRef=useRef(null)
+  const navigate=useNavigate()
   
 
   useEffect(()=>{
@@ -95,6 +99,25 @@ const submitHandler= async(e)=>{
   }
 }
 
+const deleteHandler= async()=>{
+  try {
+    dispatch(deleteUserStart())
+    const response=await fetch(`/api/user/delete/${currentUser._id}`,{
+      method:'DELETE',
+    })
+    const result= await response.json()
+    if (result.success===false){
+      dispatch(deleteUserFailure(result.message))
+      return;
+    }
+
+    dispatch(deleteUserSuccess(result))
+
+  } catch (error) {
+    dispatch(deleteUserFailure(error.message))
+  }
+}
+
 
 
   return (
@@ -121,7 +144,7 @@ const submitHandler= async(e)=>{
         <button  disabled={loading} className='bg-slate-700 text-center text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80' >{loading?'loading...':'Update'}</button>
       </form>
       <div className='flex justify-between mt-5'>
-        <span className='text-red-700 cursor-pointer'>Delete account</span>
+        <span  onClick={deleteHandler} className='text-red-700 cursor-pointer'>Delete account</span>
         <span className='text-red-700 cursor-pointer'>Sign out</span>
       </div>
       <p className='text-red-700 mt-5'>{error?error:''}</p>

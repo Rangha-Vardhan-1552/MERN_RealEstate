@@ -13,7 +13,7 @@ dotenv.config()
 // console.log('MongoDB URI:', process.env.MONGO);
 
 // Retrieve MongoDB connection URI from environment variable
-const mongoDBURI = 'mongodb+srv://rangavardhan:rangavardhan@mern-estate.jjs2llm.mongodb.net/MERN_Estate?retryWrites=true&w=majority';
+const mongoDBURI = process.env.MONGO;
 
 if (!mongoDBURI) {
   console.error('MongoDB URI is missing in the environment variables');

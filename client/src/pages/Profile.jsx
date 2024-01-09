@@ -146,7 +146,7 @@ const signOutHandler=async()=>{
         <img  onClick={()=>fileRef.current.click()} className='rounded-full w-24 h-24 object-cover self-center mt-2 cursor-pointer' src={formData.avatar || currentUser.avatar} alt='profile'/>
         <p className='flex flex-col self-center  text-sm'>
           {fileUploadError?(
-            <span className='text-red-700'>Error image upload(image should be less than 2Mb)</span>
+            <span className='text- red-700'>Error image upload(image should be less than 2Mb)</span>
           ):
           
             filePrec>0 && filePrec<100?

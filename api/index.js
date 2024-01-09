@@ -4,6 +4,8 @@ import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser';
 import UserRouter from './routes/user.routes.js';
 import AuthRouter from './routes/auth.route.js';
+import ListingRoute from './routes/listing.route.js'
+
 const app=express()
 app.use(express.json())
 app.use(cookieParser())
@@ -37,6 +39,7 @@ app.listen(3000, () => {
 
 app.use('/api/user',UserRouter)
 app.use('/api/auth',AuthRouter)
+app.use('/api/listing',ListingRoute)
 
 // create middleware for comprehensive showing errors and manage    
 app.use((err, req ,res ,next)=>{

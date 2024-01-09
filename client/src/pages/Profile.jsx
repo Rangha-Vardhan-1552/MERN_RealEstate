@@ -7,7 +7,7 @@ import { updateUserStart,updateUserSuccess,updateFailure,
           deleteUserStart,deleteUserSuccess,deleteUserFailure,
           signOuteUserStart,signOuteUserSuccess,signOuteUserFailure
  } from '../redux/user/userSlice.js';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
@@ -160,6 +160,7 @@ const signOutHandler=async()=>{
         <input type='email' placeholder='email' id='email' className='border p-3 rounded-lg'  defaultValue={currentUser.email} onChange={handleInputChange}></input>
         <input type='password' placeholder='password' id='password' className='border p-3 rounded-lg'  defaultValue={currentUser.password}onChange={handleInputChange}></input>
         <button  disabled={loading} className='bg-slate-700 text-center text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80' >{loading?'loading...':'Update'}</button>
+        <Link  className=' bg-green-700 text-white p-3 rounded-lg text-center uppercase hover:opacity-95' to={'/create-listing'}>Create Listing</Link>
       </form>
       <div className='flex justify-between mt-5'>
         <span  onClick={deleteHandler} className='text-red-700 cursor-pointer'>Delete account</span>

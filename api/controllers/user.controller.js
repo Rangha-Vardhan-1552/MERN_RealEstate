@@ -2,6 +2,7 @@ import { json } from "express"
 import User from "../models/user.model.js"
 import { errorHandler } from "../utils/error.js"
 import bcrypt from 'bcryptjs'
+import Listing from '../models/Listing.model.js'
 export const test=(req,res)=>{
     res.send('app is working fine...!')
 }
@@ -44,5 +45,19 @@ export const deleteUser=async(req,res, next)=>{
         res.status(200).json('user delete successfully')
     } catch (error) {
         next(error)
+    }
+};
+
+export const getUserListing= async(req,res, next)=>{
+    if(req.user.id === req.params.id){
+        try {
+            const result= await Listing.find({userRef:req.params.id})
+            res.status(200).json(result)
+            
+        } catch (error) {
+            next(error)
+        }
+    }else{
+        next(errorHandler(401,'You can view only your own listings'))
     }
 }

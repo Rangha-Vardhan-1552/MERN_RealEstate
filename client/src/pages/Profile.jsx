@@ -7,7 +7,7 @@ import { updateUserStart,updateUserSuccess,updateFailure,
           deleteUserStart,deleteUserSuccess,deleteUserFailure,
           signOuteUserStart,signOuteUserSuccess,signOuteUserFailure
  } from '../redux/user/userSlice.js';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useParams } from 'react-router-dom';
 
 
 
@@ -243,7 +243,10 @@ const handleListingDelete=async(delListingId)=>{
                   </Link>
                   <div className='flex flex-col items-center'>
                     <button className='text-red-700 font-semibold uppercase'onClick={()=>handleListingDelete(listing._id)}  >delete</button>
-                    <button className='text-green-700 font-semibold uppercase'>edit</button>
+                    <Link to={`/update-listing/${listing._id}`} >
+                    <button className='text-green-700 font-semibold uppercase' >edit</button>
+                    </Link>
+                    
                   </div>
                 </div>
               </>

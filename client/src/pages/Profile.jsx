@@ -22,6 +22,8 @@ export default function Profile() {
   const [filePrec , setFilePerc] = useState(0)
   const [fileUploadError, setFileUploadError] = useState(false)
   const [updateSuccess, setUpdateSuccess]= useState(false);
+  const [userListing, setUserListing] = useState([])
+  const [showListError, setShowListError] = useState(false)
   const dispatch=useDispatch()
 
   const {currentUser,loading,error}=useSelector(state=>state.user)
@@ -137,6 +139,23 @@ const signOutHandler=async()=>{
   }
 }
 
+const handleShowListing= async()=>{
+  try {
+    setShowListError(false)
+    const response= await fetch(`api/user/listing/${currentUser._id}`,{
+      method:'GET'
+    })
+    
+    const data= await response.json()
+    if(data.success===false){
+      setShowListError(true)
+    }
+    setUserListing(data)
+
+  } catch (error) {
+    setShowListError(false)
+  }
+}
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -168,6 +187,33 @@ const signOutHandler=async()=>{
       </div>
       <p className='text-red-700 mt-5'>{error?error:''}</p>
       <p className='text-green-700 mt-5'>{updateSuccess?'User update successfully...!':''}</p>
+      <p className='text-green-700 text-center cursor-pointer' onClick={handleShowListing}> Show Listings</p>
+      <p className='text-red-700'>{showListError?'Error occured in show listing...!':""}</p>
+      {
+          userListing && userListing.length>0 && 
+          <div className='flex flex-col gap-4'>
+            <h1 className='font-semibold text-2xl text-center mt-5'>Your Listings</h1>
+            {
+              userListing.map((listing)=>
+              <>
+                <div key  ={listing._id} className='border rounded-lg p-3 flex justify-between items-center gap-4 '>
+                  <Link to={`/listing/${currentUser._id}`}>
+                    <img src={listing.imageUrls[0]} alt='listing profile' className='w-16 h-16 object-contain  '/>
+                  </Link>
+                  <Link className='font-semibold text-slate-700 flex-1 hover:underline truncate' to={`/listing/${currentUser._id}`}>
+                    <p >New Listings</p>
+                  </Link>
+                  <div className='flex flex-col items-center'>
+                    <button className='text-red-700 font-semibold uppercase'>delete</button>
+                    <button className='text-green-700 font-semibold uppercase'>edit</button>
+                  </div>
+                </div>
+              </>
+            )
+          }
+          </div>
+      }
     </div>
+    
   )
 }

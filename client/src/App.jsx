@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import Header from './Components/Header';
 import PrivateRoute from './Components/PrivateRoute';
 import CreateListing from './pages/CreateListing';
+
 function App() {
   return (
     <BrowserRouter>

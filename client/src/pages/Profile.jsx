@@ -31,6 +31,7 @@ export default function Profile() {
   const [formData , setFormData] = useState({})
   const fileRef=useRef(null)
   const navigate=useNavigate()
+  console.log(formData)
   
 
   useEffect(()=>{
@@ -174,6 +175,25 @@ const handleListingDelete=async(delListingId)=>{
   }
 
 }
+
+// const handleListUpdate= async(updateListId)=>{
+//   try {
+//     const response= await fetch(`/api/listing/update/${updateListId}`,{
+//       method:'POST',
+//       headers:{
+//         'Content-Type':'application/json'
+//       },
+//       body:JSON.stringify(formData)
+//     })
+//     const data= await response.json()
+//     if(data.success === false){
+//       console.log(response.message)
+//     }
+//     setUserListing(data)
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
   return (
     <div className='p-3 max-w-lg mx-auto'>

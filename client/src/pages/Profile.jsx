@@ -157,6 +157,24 @@ const handleShowListing= async()=>{
   }
 }
 
+const handleListingDelete=async(delListingId)=>{
+  try {
+    const response= await fetch(`api/listing/delete/${delListingId}`,{
+      method:'DELETE'
+    })
+    const data= await response.json()
+    if(data.success === false){
+      console.log(data.message)
+      return
+    }
+    setUserListing((prev)=>prev.filter((listing)=>listing._id !== delListingId))
+    
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
@@ -201,10 +219,10 @@ const handleShowListing= async()=>{
                     <img src={listing.imageUrls[0]} alt='listing profile' className='w-16 h-16 object-contain  '/>
                   </Link>
                   <Link className='font-semibold text-slate-700 flex-1 hover:underline truncate' to={`/listing/${currentUser._id}`}>
-                    <p >New Listings</p>
+                    <p >{listing.description}</p>
                   </Link>
                   <div className='flex flex-col items-center'>
-                    <button className='text-red-700 font-semibold uppercase'>delete</button>
+                    <button className='text-red-700 font-semibold uppercase'onClick={()=>handleListingDelete(listing._id)}  >delete</button>
                     <button className='text-green-700 font-semibold uppercase'>edit</button>
                   </div>
                 </div>

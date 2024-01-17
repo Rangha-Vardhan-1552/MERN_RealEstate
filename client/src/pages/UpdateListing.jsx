@@ -126,7 +126,7 @@ export default function UpdateListing() {
             if (+formData.regularPrice < +formData.discountPrice) return setError('Discount price must be lower than regular price')
             setloading(true)
             setError(false)
-            const response= await fetch('/api/listing/create',{
+            const response= await fetch(`/api/listing/update/${params.listingId}`,{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'

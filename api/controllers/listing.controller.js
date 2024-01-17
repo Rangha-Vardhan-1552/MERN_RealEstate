@@ -58,4 +58,6 @@ export const getUserList= async(req,res, next)=>{
     } catch (error) {
         next(error)
     }
-}
+};
+
+

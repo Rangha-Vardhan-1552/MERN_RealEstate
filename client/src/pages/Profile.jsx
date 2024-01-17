@@ -238,7 +238,7 @@ const handleListingDelete=async(delListingId)=>{
                   <Link to={`/listing/${currentUser._id}`}>
                     <img src={listing.imageUrls[0]} alt='listing profile' className='w-16 h-16 object-contain  '/>
                   </Link>
-                  <Link className='font-semibold text-slate-700 flex-1 hover:underline truncate' to={`/listing/${currentUser._id}`}>
+                  <Link className='font-semibold text-slate-700 flex-1 hover:underline truncate' to={`/listing/${listing._id}`}>
                     <p >{listing.description}</p>
                   </Link>
                   <div className='flex flex-col items-center'>

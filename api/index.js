@@ -16,13 +16,13 @@ dotenv.config()
 // console.log('MongoDB URI:', process.env.MONGO);
 
 // Retrieve MongoDB connection URI from environment variable
-const mongoDBURI = process.env.MONGO
-if (!mongoDBURI) {
+const mongo = process.env.MONGO
+if (!mongo) {
   console.error('MongoDB URI is missing in the environment variables');
   process.exit(1);
 }
 // 'mongodb://127.0.0.1:27017/mern_estate'
-mongoose.connect(mongoDBURI, {
+mongoose.connect(mongo, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

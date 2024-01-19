@@ -31,7 +31,6 @@ export default function Profile() {
   const [formData , setFormData] = useState({})
   const fileRef=useRef(null)
   const navigate=useNavigate()
-  console.log(formData)
   
 
   useEffect(()=>{

@@ -17,7 +17,6 @@ export default function Search() {
 
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
-  console.log(listings);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -125,7 +124,6 @@ export default function Search() {
       setShowMore(false)
     }
     setListings([...listings, ...data])
-    console.log(listings)
 
   }
   return (

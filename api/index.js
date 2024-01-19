@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import UserRouter from './routes/user.routes.js';
 import AuthRouter from './routes/auth.route.js';
 import ListingRoute from './routes/listing.route.js'
+import path from 'path'
 
 const app=express()
 app.use(express.json())
@@ -37,9 +38,16 @@ app.listen(3000, () => {
   console.log('Server is running at 3000..!');
 });
 
+const __dirname=path.resolve()
+
 app.use('/api/user',UserRouter)
 app.use('/api/auth',AuthRouter)
 app.use('/api/listing',ListingRoute)
+
+app.use(express.static(path.join(__dirname,'/client/dist')))
+app.get('*',(req,res)=>{
+  res.sendFile(path.join(__dirname,'client','dist','index.html'))
+})
 
 // create middleware for comprehensive showing errors and manage    
 app.use((err, req ,res ,next)=>{

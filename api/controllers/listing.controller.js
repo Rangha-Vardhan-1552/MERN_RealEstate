@@ -92,7 +92,8 @@ export const getListings =async(req,res,next)=>{
             name:{$regex:searchTerm , $options:'i'},
             offer,
             furnished,
-            parking,   
+            parking,  
+            type 
         }).sort({ [sort]:order })
         .limit(limit)
         .skip(startIndex)
